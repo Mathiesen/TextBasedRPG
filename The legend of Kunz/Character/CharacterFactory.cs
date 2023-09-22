@@ -59,25 +59,20 @@ internal static class CharacterFactory
         Console.WriteLine("2. Mage");
         Console.WriteLine("3. Rogue");
         Console.WriteLine("4. Warlock");
-        string choice = Console.ReadLine();
+        var choice = Console.ReadLine();
 
         return choice;
     }
     
     private static Class HandleClassPick(string? choice)
     {
-        switch (choice)
+        return choice switch
         {
-            case "1":
-                return ClassFactory.Create(ClassEnum.Warrior);
-            case "2":
-                return ClassFactory.Create(ClassEnum.Mage);
-            case "3":
-                return ClassFactory.Create(ClassEnum.Rogue);
-            case "4":
-                return ClassFactory.Create(ClassEnum.Warlock);
-            default:
-                return null;
-        }
+            "1" => ClassFactory.Create(ClassEnum.Warrior),
+            "2" => ClassFactory.Create(ClassEnum.Mage),
+            "3" => ClassFactory.Create(ClassEnum.Rogue),
+            "4" => ClassFactory.Create(ClassEnum.Warlock),
+            _ => null
+        };
     }
 }
