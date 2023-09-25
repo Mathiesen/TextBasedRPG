@@ -2,7 +2,8 @@
 
 public enum AreaEnum
 {
-    DarkForrest = 1,
+    Undefined = 0,
+    DarkForrest,
     Village,
     Ruin,
     MysticalCave,

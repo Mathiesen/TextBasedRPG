@@ -1,15 +1,16 @@
-﻿using The_legend_of_Kunz.Character.Enemies;
+﻿using System.Security.Cryptography;
+using The_legend_of_Kunz.Character.Enemies;
+using The_legend_of_Kunz.Character.LootTables;
 using The_legend_of_Kunz.Classes;
-using The_legend_of_Kunz.Implementation;
-using The_legend_of_Kunz.Weapons.Implementation;
+using The_legend_of_Kunz.Items;
 
 namespace The_legend_of_Kunz.Character;
 
 internal static class CharacterFactory
 {
-    public static Character CreateCharacter(CharacterEnum characterType)
+    public static Character? CreateCharacter(CharacterEnum characterType, Character? player)
     {
-        Character character = null;
+        Character? character = null;
 
         switch (characterType)
         {
@@ -17,7 +18,7 @@ internal static class CharacterFactory
                 character = CreatePlayerCharacter();
                 break;
             case CharacterEnum.Skeleton:
-                character = new Skeleton();
+                character = CreateSkeletonCharacter(player);
                 break;
             case CharacterEnum.Goblin:
                 break;
@@ -28,10 +29,28 @@ internal static class CharacterFactory
         return character;
     }
 
-    private static Character CreatePlayerCharacter()
+    private static Character? CreateSkeletonCharacter(Character? player)
     {
-        var character = new Player();
-        character.Level = 1;
+        var clazz = ClassFactory.Create(ClassEnum.Warrior);
+        var character = new Skeleton
+        {
+            Class = clazz,
+            Level = RandomNumberGenerator.GetInt32(player.Level, player.Level + 3)
+        };
+
+        character.Inventory.Randomize(SkeletonLootTable.PossibleLoot.ToList());
+        
+        
+
+        return character;
+    }
+
+    private static Character? CreatePlayerCharacter()
+    {
+        var character = new Player
+        {
+            Level = 1
+        };
         Console.WriteLine("Enter your character's name: ");
         character.Name = Console.ReadLine();
         
@@ -41,13 +60,9 @@ internal static class CharacterFactory
 
         if (character.Class.GetType() == typeof(Warrior))
         {
-            character.Inventory.Weapons
-                .Add(Guid.NewGuid().ToString(), new Sword(
-                    "Short copper sword",
-                    10,
-                    0));
-            character.Inventory.Items.Add(Guid.NewGuid().ToString(), new HealthPotion("Small health potion"));
-            character.Inventory.Items.Add(Guid.NewGuid().ToString(), new HealthPotion("Small health potion"));
+            character.Inventory.Items.Add(Guid.NewGuid().ToString(), ItemDictionary.GetItem(ItemEnum.SmallBronzeSword));
+            character.Inventory.Items.Add(Guid.NewGuid().ToString(), ItemDictionary.GetItem(ItemEnum.SmallHealthPotion));
+            character.Inventory.Items.Add(Guid.NewGuid().ToString(), ItemDictionary.GetItem(ItemEnum.SmallHealthPotion));
         }
         
         return character;
@@ -66,13 +81,13 @@ internal static class CharacterFactory
     
     private static Class HandleClassPick(string? choice)
     {
-        return choice switch
+        return (choice switch
         {
             "1" => ClassFactory.Create(ClassEnum.Warrior),
             "2" => ClassFactory.Create(ClassEnum.Mage),
             "3" => ClassFactory.Create(ClassEnum.Rogue),
             "4" => ClassFactory.Create(ClassEnum.Warlock),
             _ => null
-        };
+        })!;
     }
 }

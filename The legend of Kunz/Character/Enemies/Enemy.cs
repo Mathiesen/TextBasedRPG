@@ -2,6 +2,8 @@
 
 public class Enemy : Character
 {
+    private static Random rng = new();
+    
     public override void AttackTarget(Character target)
     {
         throw new NotImplementedException();

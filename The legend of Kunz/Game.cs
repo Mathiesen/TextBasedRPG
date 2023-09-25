@@ -4,7 +4,7 @@ namespace The_legend_of_Kunz;
 
 public class Game
 {
-    private Character.Character _player;
+    private Character.Character? _player;
     private bool _isRunning;
     private bool _firstLoad;
     
@@ -41,6 +41,9 @@ public class Game
             case "4":
                 Exit();
                 break;
+            case "5":
+                CreateSkeleton();
+                break;
             default:
                 Console.WriteLine("Invalid choice, try again");
                 break;
@@ -66,17 +69,14 @@ public class Game
 
     private void Inventory()
     {
-        var items = _player.Inventory.Items;
-        var weapons = _player.Inventory.Weapons;
-        if (items.Count == 0
-            && weapons.Count == 0)
+        var items = _player?.Inventory.Items;
+        if (items!.Count == 0)
         {
             Console.WriteLine("You do not have anything in your inventory");
         }
 
         Console.WriteLine("\nYour inventory contains: ");
-        items.ToList().ForEach(x => Console.WriteLine(x.Value.ToString()));
-        weapons.ToList().ForEach(x => Console.WriteLine(x.Value.ToString()));
+        items.ToList().ForEach(x => Console.WriteLine(x.Value.GetDescription()));
         
         Continue();
     }
@@ -98,11 +98,19 @@ public class Game
         Console.WriteLine("2. View inventory");
         Console.WriteLine("3. View stats");
         Console.WriteLine("4. Exit game");
+        Console.WriteLine("5. Create skeleton");
     }
 
     private void CreateCharacter()
     {
-        _player = CharacterFactory.CreateCharacter(CharacterEnum.Player);
+        _player = CharacterFactory.CreateCharacter(CharacterEnum.Player, null);
+    }
+
+    private Character.Character? CreateSkeleton()
+    {
+        var skellie =  CharacterFactory.CreateCharacter(CharacterEnum.Skeleton, _player);
+        skellie!.Inventory.Items.ToList().ForEach(x => Console.WriteLine(x.Value));
+        return skellie;
     }
 
     private void Continue()

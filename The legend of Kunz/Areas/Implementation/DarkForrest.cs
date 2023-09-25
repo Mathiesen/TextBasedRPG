@@ -13,6 +13,11 @@ public class DarkForrest : Area
     };
     public DarkForrest()
     {
+        Description();
+    }
+
+    public override void Description()
+    {
         Console.WriteLine($"You find yourself in a dark and dense forrest." +
                           $"The trees seems to whisper secrets.");
     }
