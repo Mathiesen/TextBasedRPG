@@ -1,10 +1,10 @@
-﻿using The_legend_of_Kunz.Character;
+﻿using Characters;
 
 namespace The_legend_of_Kunz;
 
 public class Game
 {
-    private Character.Character? _player;
+    private Character? _player;
     private bool _isRunning;
     private bool _firstLoad;
     
@@ -106,10 +106,10 @@ public class Game
         _player = CharacterFactory.CreateCharacter(CharacterEnum.Player, null);
     }
 
-    private Character.Character? CreateSkeleton()
+    private Character? CreateSkeleton()
     {
         var skellie =  CharacterFactory.CreateCharacter(CharacterEnum.Skeleton, _player);
-        skellie!.Inventory.Items.ToList().ForEach(x => Console.WriteLine(x.Value));
+        skellie!.Inventory.Items.ToList().ForEach(x => Console.WriteLine(x.Value.GetDescription()));
         return skellie;
     }
 

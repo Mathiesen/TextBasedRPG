@@ -1,4 +1,4 @@
-﻿using The_legend_of_Kunz.Areas;
+﻿using Areas;
 
 namespace The_legend_of_Kunz;
 
