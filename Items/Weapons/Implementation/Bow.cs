@@ -6,17 +6,20 @@ namespace Items.Weapons.Implementation;
 public class Bow : IWeapon
 {
     private ItemEnum _item;
-    public Bow(string name, int attack, RarityEnum rarity, int dropChance, ItemEnum item)
+    private readonly QualityColorMapper _mapper;
+
+    public Bow(string name, int attack, QualityEnum quality, int dropChance, ItemEnum item, QualityColorMapper mapper)
     {
         Name = name;
         Attack = attack;
-        Rarity = rarity;
+        Quality = quality;
         DropChance = dropChance;
         _item = item;
+        _mapper = mapper;
     }
     
     public string Name { get; init; }
-    public RarityEnum Rarity { get; init; }
+    public QualityEnum Quality { get; init; }
     public int DropChance { get; init; }
     public int Attack { get; init; }
     public int Defence { get; init; }
@@ -26,8 +29,7 @@ public class Bow : IWeapon
         switch (_item)
         {
             case ItemEnum.SmallWoodenBow:
-                return $"{Name
-                    .Pastel(Color.FromArgb(157, 157, 157))} +{Attack} ATT";
+                return $"{_mapper.ColorizeStringByQuality(Name, Quality)} +{Attack} ATT";
             default:
                 return string.Empty;
         }

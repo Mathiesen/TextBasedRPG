@@ -2,16 +2,28 @@
 
 namespace Characters.LootTables;
 
-public abstract record SkeletonLootTable : ILootTable
+public record SkeletonLootTable : ILootTable
 {
-    public static IEnumerable<IItem> PossibleLoot { get; } = new List<IItem>
+    public SkeletonLootTable(ItemDictionary items) 
     {
-        ItemDictionary.GetItem(ItemEnum.BronzeSword),
-        ItemDictionary.GetItem(ItemEnum.LargeHealthPotion),
-        ItemDictionary.GetItem(ItemEnum.SmallHealthPotion),
-        ItemDictionary.GetItem(ItemEnum.SmallBronzeSword),
-        ItemDictionary.GetItem(ItemEnum.SmallWoodenBow),
-        ItemDictionary.GetItem(ItemEnum.SwordOfThousandTruths),
-        ItemDictionary.GetItem(ItemEnum.Gold)
-    };
+        CreatePossibleLoot(items);
+    }
+
+    private void CreatePossibleLoot(ItemDictionary items)
+    {
+        PossibleLoot = new List<IItem?>
+        {
+            items.GetItem(ItemEnum.BronzeSword),
+            items.GetItem(ItemEnum.LargeHealthPotion),
+            items.GetItem(ItemEnum.SmallHealthPotion),
+            items.GetItem(ItemEnum.SmallBronzeSword),
+            items.GetItem(ItemEnum.SmallWoodenBow),
+            items.GetItem(ItemEnum.SwordOfThousandTruths),
+            items.GetItem(ItemEnum.Gold)
+        };
+    }
+    
+    public IEnumerable<IItem?> PossibleLoot { get; private set; }
+    
+    
 }

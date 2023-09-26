@@ -10,4 +10,10 @@
       <PackageReference Include="Pastel" Version="4.1.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="Items.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

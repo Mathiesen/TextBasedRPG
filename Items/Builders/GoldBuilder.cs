@@ -4,28 +4,33 @@ namespace Items.Builders;
 
 public class GoldBuilder : IGoldBuilder
 {
-    private string _name;
     private int _amount;
-    private RarityEnum _rarity;
+    private QualityEnum _quality;
     private int _dropChance;
     private string _description;
+    private QualityColorMapper _mapper;
+    private ItemEnum _item;
 
-
-    public IItemBuilder SetName(string name)
+    public GoldBuilder(QualityColorMapper mapper)
     {
-        _name = name;
-        return this;
+        _mapper = mapper;
     }
 
-    public IItemBuilder SetRarity(RarityEnum rarity)
+    public IItemBuilder SetQuality(QualityEnum quality)
     {
-        _rarity = rarity;
+        _quality = quality;
         return this;
     }
 
     public IItemBuilder SetDropChance(int dropChance)
     {
         _dropChance = dropChance;
+        return this;
+    }
+
+    public IItemBuilder SetItemEnum(ItemEnum item)
+    {
+        _item = item;
         return this;
     }
 
@@ -37,6 +42,6 @@ public class GoldBuilder : IGoldBuilder
 
     public IItem Build()
     {
-        return new Gold(_name, _dropChance, _amount);
+        return new Gold("Gold", _dropChance, _amount, _quality, _mapper);
     }
 }

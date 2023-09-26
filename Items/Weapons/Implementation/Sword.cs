@@ -6,18 +6,19 @@ namespace Items.Weapons.Implementation;
 public class Sword : IWeapon
 {
     private ItemEnum _item;
+    private QualityColorMapper _mapper;
     
-    public Sword(string name, int attack, RarityEnum rarity, int dropChance, ItemEnum item)
+    public Sword(string name, int attack, QualityEnum quality, int dropChance, ItemEnum item, QualityColorMapper mapper)
     {
         Name = name;
         Attack = attack;
-        Rarity = rarity;
+        Quality = quality;
         DropChance = dropChance;
         _item = item;
     }
 
     public string Name { get; init; }
-    public RarityEnum Rarity { get; init; }
+    public QualityEnum Quality { get; init; }
     public int DropChance { get; init; }
     public int Attack { get; init; }
     public int Defence { get; init; }
@@ -27,14 +28,11 @@ public class Sword : IWeapon
         switch (_item)
         {
             case ItemEnum.BronzeSword:
-                return $"{Name
-                    .Pastel(Color.FromArgb(30, 255, 0))} +{Attack} ATT";
+                return $"{_mapper.ColorizeStringByQuality(Name, Quality)} +{Attack} ATT";
             case ItemEnum.SmallBronzeSword:
-                return $"{Name
-                    .Pastel(Color.FromArgb(255, 255, 255))} +{Attack} ATT";
+                return $"{_mapper.ColorizeStringByQuality(Name, Quality)} +{Attack} ATT";
             case ItemEnum.SwordOfThousandTruths:
-                return $"{Name
-                    .Pastel(Color.FromArgb(163, 53, 238))} +{Attack} ATT";
+                return $"{_mapper.ColorizeStringByQuality(Name, Quality)} +{Attack} ATT";
             default:
                 return string.Empty;
         }

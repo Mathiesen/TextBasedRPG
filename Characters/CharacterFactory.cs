@@ -7,9 +7,16 @@ using Items;
 
 namespace Characters;
 
-public static class CharacterFactory
+public class CharacterFactory
 {
-    public static Character? CreateCharacter(CharacterEnum characterType, Character? player)
+    private ItemDictionary _items;
+
+    public CharacterFactory(ItemDictionary items)
+    {
+        _items = items;
+    }
+    
+    public Character? CreateCharacter(CharacterEnum characterType, Character? player)
     {
         Character? character = null;
 
@@ -30,7 +37,7 @@ public static class CharacterFactory
         return character;
     }
 
-    private static Character? CreateSkeletonCharacter(Character? player)
+    private Character? CreateSkeletonCharacter(Character? player)
     {
         var clazz = ClassFactory.Create(ClassEnum.Warrior);
         var character = new Skeleton
@@ -39,14 +46,12 @@ public static class CharacterFactory
             Level = RandomNumberGenerator.GetInt32(player.Level, player.Level + 3)
         };
 
-        character.Inventory.Randomize(SkeletonLootTable.PossibleLoot.ToList());
-        
-        
+        character.Inventory.Randomize(new SkeletonLootTable(_items).PossibleLoot.ToList());
 
         return character;
     }
 
-    private static Character? CreatePlayerCharacter()
+    private Character? CreatePlayerCharacter()
     {
         var character = new Player
         {
@@ -61,12 +66,17 @@ public static class CharacterFactory
 
         if (character.Class.GetType() == typeof(Warrior))
         {
-            character.Inventory.Items.Add(Guid.NewGuid().ToString(), ItemDictionary.GetItem(ItemEnum.SmallBronzeSword));
-            character.Inventory.Items.Add(Guid.NewGuid().ToString(), ItemDictionary.GetItem(ItemEnum.SmallHealthPotion));
-            character.Inventory.Items.Add(Guid.NewGuid().ToString(), ItemDictionary.GetItem(ItemEnum.SmallHealthPotion));
+            FillWarriorInventory(_items, character);
         }
         
         return character;
+    }
+
+    private void FillWarriorInventory(ItemDictionary items, Character character)
+    {
+        character.Inventory.Items.Add(Guid.NewGuid().ToString(), items.GetItem(ItemEnum.SmallBronzeSword));
+        character.Inventory.Items.Add(Guid.NewGuid().ToString(), items.GetItem(ItemEnum.SmallHealthPotion));
+        character.Inventory.Items.Add(Guid.NewGuid().ToString(), items.GetItem(ItemEnum.SmallHealthPotion));
     }
     
     private static string DisplayClassMenu()

@@ -1,10 +1,11 @@
 ﻿namespace Items;
 
-public enum RarityEnum
+public enum QualityEnum
 {
     Poor,
     Common,
     Uncommon,
     Rare,
     Epic,
+    Gold
 }

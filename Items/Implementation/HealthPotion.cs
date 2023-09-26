@@ -6,28 +6,27 @@ namespace Items.Implementation;
 public class HealthPotion : IItem
 {
     private ItemEnum _item;
-    
-    public HealthPotion(string name, RarityEnum rarity, int dropChance, ItemEnum item)
+    private readonly QualityColorMapper _mapper;
+    private readonly int _healthRestore;
+
+    public HealthPotion(string name, QualityEnum quality, int dropChance, ItemEnum item, int healthRetore, QualityColorMapper mapper)
     {
         Name = name;
-        Rarity = rarity;
+        Quality = quality;
         DropChance = dropChance;
+        _healthRestore = healthRetore;
         _item = item;
+        _mapper = mapper;
     }
 
     public string GetDescription()
     {
-        if (_item == ItemEnum.SmallHealthPotion)
-        {
-            return $"{Name
-                .Pastel(Color.FromArgb(255, 255, 255))} +{15} HP";
-        }
-
-        return $"{Name
-            .Pastel(Color.FromArgb(255, 255, 255))} +{25} HP";
+        return $"{_mapper.ColorizeStringByQuality(Name, Quality)} +{HealthRestore} HP";
     }
     
     public string Name { get; init; }
-    public RarityEnum Rarity { get; init; }
+    public QualityEnum Quality { get; init; }
     public int DropChance { get; init; }
+    
+    public int HealthRestore { get; init; }
 }

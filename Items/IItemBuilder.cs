@@ -2,8 +2,8 @@
 
 public interface IItemBuilder
 {
-    IItemBuilder SetName(string name);
-    IItemBuilder SetRarity(RarityEnum rarity);
+    IItemBuilder SetQuality(QualityEnum quality);
     IItemBuilder SetDropChance(int dropChance);
+    IItemBuilder SetItemEnum(ItemEnum item);
     IItem Build();
 }

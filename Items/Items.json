@@ -1,0 +1,20 @@
+﻿{
+  "Gold": {
+    "Name": "Gold",
+    "Color": [212, 175, 55],
+    "Description": "+{amount}",
+    "Rarity": "Common"
+  },
+  "SmallHealthPotion": {
+    "Name": "Small health potion",
+    "Rarity": "Common",
+    "Description": "+15 HP",
+    "Color": [255, 255, 255]
+  },
+  "LargeHealthPotion": {
+    "Name": "Large health potion",
+    "Rarity": "Common",
+    "Description": "+25 HP",
+    "Color": [255, 255, 255]
+  }
+}

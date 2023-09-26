@@ -4,26 +4,46 @@ using Items.Weapons.Implementation;
 
 namespace Items;
 
-public static class ItemDictionary
+public class ItemDictionary
 {
-    private static readonly IDictionary<ItemEnum, IItem> Items = new Dictionary<ItemEnum, IItem>
-    {
-        { ItemEnum.Gold, new GoldBuilder()
-            .SetAmount(10)
-            .SetName("Gold")
-            .SetRarity(RarityEnum.Common)
-            .SetDropChance(60)
-            .Build() },
-        { ItemEnum.SmallHealthPotion, new HealthPotion("Small health potion", RarityEnum.Common, 25, ItemEnum.SmallHealthPotion) },
-        { ItemEnum.LargeHealthPotion, new HealthPotion("Large health potion", RarityEnum.Common, 25, ItemEnum.LargeHealthPotion) },
-        { ItemEnum.SmallBronzeSword, new Sword("Small bronze sword", 15, RarityEnum.Common, 25, ItemEnum.SmallBronzeSword) },
-        { ItemEnum.BronzeSword, new Sword("Bronze sword", 20, RarityEnum.Uncommon, 15, ItemEnum.BronzeSword) },
-        { ItemEnum.SmallWoodenBow, new Bow("Small wooden bow", 10, RarityEnum.Poor, 50, ItemEnum.SmallWoodenBow) },
-        { ItemEnum.SwordOfThousandTruths, new Sword("The sword of a thousand truths", 100, RarityEnum.Epic, 100, ItemEnum.SwordOfThousandTruths) }
-    };
+    private IDictionary<ItemEnum, IItem> _items = new Dictionary<ItemEnum, IItem>();
+    private readonly ItemConfigReader _configReader;
 
-    public static IItem GetItem(ItemEnum item)
+    public ItemDictionary(QualityColorMapper mapper, ItemConfigReader configReader)
     {
-        return Items[item];
+        InitializeItems(mapper);
+        _configReader = configReader;
+    }
+
+    private void InitializeItems(QualityColorMapper mapper)
+    {
+        _items = new Dictionary<ItemEnum, IItem>
+        {
+            { ItemEnum.Gold, new GoldBuilder(mapper)
+                .SetAmount(10)
+                .SetQuality(QualityEnum.Gold)
+                .SetDropChance(60)
+                .Build() },
+            { ItemEnum.SmallHealthPotion, new ItemBuilder(mapper)
+                .SetItemEnum(ItemEnum.SmallHealthPotion)
+                .SetDropChance(45)
+                .SetQuality(QualityEnum.Common)
+                .Build()
+            },
+            { ItemEnum.SmallBronzeSword, new WeaponBuilder(mapper)
+                .SetAttack(12)
+                .SetDefence(0)
+                .SetItemEnum(ItemEnum.SmallBronzeSword)
+                .SetQuality(QualityEnum.Common)
+                .SetDropChance(50)
+                .Build()
+            }
+        };
+    }
+
+    public IItem? GetItem(ItemEnum item)
+    {
+        _items.TryGetValue(item, out var value);
+        return value;
     }
 }

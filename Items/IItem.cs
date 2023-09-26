@@ -3,7 +3,7 @@
 public interface IItem
 {
     string Name { get; init; }
-    RarityEnum Rarity { get; init; }
+    QualityEnum Quality { get; init; }
     int DropChance { get; init; }
 
     string GetDescription();
