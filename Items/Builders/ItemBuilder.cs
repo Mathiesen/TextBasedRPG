@@ -12,7 +12,7 @@ public class ItemBuilder : IItemBuilder
 
     public ItemBuilder(QualityColorMapper mapper)
     {
-        mapper = _mapper;
+        _mapper = mapper;
     }
 
     public IItemBuilder SetQuality(QualityEnum quality)

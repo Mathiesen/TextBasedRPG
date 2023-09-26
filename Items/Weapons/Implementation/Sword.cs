@@ -15,6 +15,7 @@ public class Sword : IWeapon
         Quality = quality;
         DropChance = dropChance;
         _item = item;
+        _mapper = mapper;
     }
 
     public string Name { get; init; }

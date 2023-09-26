@@ -20,6 +20,9 @@ public class Inventory
         {
             var randomValue = rng.Next(1, 101);
 
+            if (item == null)
+                continue;
+            
             if (randomValue <= item.DropChance)
             {
                 if (item.GetType() == typeof(Gold))
