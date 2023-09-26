@@ -24,7 +24,20 @@ public class Game
             DisplayMainMenu();
 
             string choice = Console.ReadLine();
-            HandleMainMenuChoice(choice);
+            if (choice != null && choice.StartsWith("!"))
+            {
+                var newChoice = choice.Remove(choice.IndexOf("!", StringComparison.Ordinal), 1);
+                var words = newChoice.Split(" ");
+                if (words[0] == "give" && words[1] == "item")
+                {
+                    var item = (ItemEnum)Enum.Parse(typeof(ItemEnum), words[2]);
+                    _player.Inventory.GiveItem(item);
+                }
+            }
+            else
+            {
+                HandleMainMenuChoice(choice);
+            }
         }
     }
 

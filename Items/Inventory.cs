@@ -1,24 +1,27 @@
 ﻿using System.Security.Cryptography;
+using Common;
 using Items.Implementation;
 
 namespace Items;
 
-public class Inventory
+public class Inventory : IInventory
 {
-    public IDictionary<string, IItem> Items;
+    public IDictionary<Guid, IItem> Items { get; set; }
 
-    private static readonly Random rng = new();
+    private static readonly Random Rng = new();
+    private IItemDictionary _itemDictionary;
 
-    public Inventory()
+    public Inventory(IItemDictionary itemDictionary)
     {
-        Items = new Dictionary<string, IItem>();
+        _itemDictionary = itemDictionary;
+        Items = new Dictionary<Guid, IItem>();
     }
 
-    public void Randomize(List<IItem> possibleLoot)
+    public void Randomize(IList<IItem> possibleLoot)
     {
         foreach (var item in possibleLoot)
         {
-            var randomValue = rng.Next(1, 101);
+            var randomValue = Rng.Next(1, 101);
 
             if (item == null)
                 continue;
@@ -29,14 +32,19 @@ public class Inventory
                 {
                     var gold = item as Gold;
                     gold!.Amount = RandomNumberGenerator.GetInt32(1, 11);
-                    Items.Add(Guid.NewGuid().ToString(), gold);
+                    Items.Add(Guid.NewGuid(), gold);
                 }
                 else
                 {
-                    Items.Add(Guid.NewGuid().ToString(), item);    
+                    Items.Add(Guid.NewGuid(), item);    
                 }
             }
                 
         }
+    }
+
+    public void GiveItem(ItemEnum item)
+    {
+        Items.Add(Guid.NewGuid(), _itemDictionary.GetItem(item) ?? throw new InvalidOperationException());
     }
 }

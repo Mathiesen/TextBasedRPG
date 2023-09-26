@@ -1,10 +1,9 @@
-﻿using Items.Builders;
-using Items.Implementation;
-using Items.Weapons.Implementation;
+﻿using Common;
+using Items.Builders;
 
 namespace Items;
 
-public class ItemDictionary
+public class ItemDictionary : IItemDictionary
 {
     private IDictionary<ItemEnum, IItem> _items = new Dictionary<ItemEnum, IItem>();
 
@@ -34,6 +33,14 @@ public class ItemDictionary
                 .SetItemEnum(ItemEnum.SmallBronzeSword)
                 .SetQuality(QualityEnum.Common)
                 .SetDropChance(50)
+                .Build()
+            },
+            { ItemEnum.SwordOfThousandTruths, new WeaponBuilder(mapper)
+                .SetAttack(100)
+                .SetDefence(0)
+                .SetItemEnum(ItemEnum.SwordOfThousandTruths)
+                .SetQuality(QualityEnum.Epic)
+                .SetDropChance(1)
                 .Build()
             }
         };

@@ -1,10 +1,17 @@
-﻿namespace Characters.Enemies;
+﻿using Common;
 
-public class Enemy : Characters.Character
+namespace Characters.Enemies;
+
+public abstract class Enemy : Character
 {
-    private static Random rng = new();
+    private static Random _rng = new();
+
+    protected Enemy(IItemDictionary itemDictionary) 
+        : base(itemDictionary)
+    {
+    }
     
-    public override void AttackTarget(Characters.Character target)
+    public override void AttackTarget(ICharacter target)
     {
         throw new NotImplementedException();
     }

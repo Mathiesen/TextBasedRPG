@@ -1,9 +1,11 @@
-﻿namespace Characters.Enemies;
+﻿using Common;
+
+namespace Characters.Enemies;
 
 public class Skeleton : Enemy
 {
-    public Skeleton()
+    public Skeleton(IItemDictionary itemDictionary) 
+        : base(itemDictionary)
     {
-        
     }
 }

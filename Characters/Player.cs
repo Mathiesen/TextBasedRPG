@@ -1,8 +1,15 @@
-﻿namespace Characters;
+﻿using Common;
+
+namespace Characters;
 
 public class Player : Character
 {
-    public override void AttackTarget(Character target)
+    public Player(IItemDictionary itemDictionary) 
+        : base(itemDictionary)
+    {
+    }
+    
+    public override void AttackTarget(ICharacter target)
     {
         throw new NotImplementedException();
     }

@@ -3,6 +3,7 @@ using Characters.Enemies;
 using Characters.LootTables;
 using Classes;
 using Classes.Implementation;
+using Common;
 using Items;
 
 namespace Characters;
@@ -40,7 +41,7 @@ public class CharacterFactory
     private Character? CreateSkeletonCharacter(Character? player)
     {
         var clazz = ClassFactory.Create(ClassEnum.Warrior);
-        var character = new Skeleton
+        var character = new Skeleton(_items)
         {
             Class = clazz,
             Level = RandomNumberGenerator.GetInt32(player.Level, player.Level + 3)
@@ -53,43 +54,23 @@ public class CharacterFactory
 
     private Character? CreatePlayerCharacter()
     {
-        var character = new Player
+        var character = new Player(_items)
         {
-            Level = 1
+            Level = 1,
+            Name = UserInteraction.GetCharacterName()
         };
-        Console.WriteLine("Enter your character's name: ");
-        character.Name = Console.ReadLine();
-        
-        Console.WriteLine($"\nHello {character.Name}, pick your class");
-        var classChoice = DisplayClassMenu();
+
+        var classChoice = UserInteraction.DisplayClassMenu(character.Name);
         character.Class = HandleClassPick(classChoice);
 
         if (character.Class.GetType() == typeof(Warrior))
         {
-            FillWarriorInventory(_items, character);
+            character.Class.FillInventory(_items, character);
         }
         
         return character;
     }
 
-    private void FillWarriorInventory(ItemDictionary items, Character character)
-    {
-        character.Inventory.Items.Add(Guid.NewGuid().ToString(), items.GetItem(ItemEnum.SmallBronzeSword));
-        character.Inventory.Items.Add(Guid.NewGuid().ToString(), items.GetItem(ItemEnum.SmallHealthPotion));
-        character.Inventory.Items.Add(Guid.NewGuid().ToString(), items.GetItem(ItemEnum.SmallHealthPotion));
-    }
-    
-    private static string DisplayClassMenu()
-    {
-        Console.WriteLine("1. Warrior");
-        Console.WriteLine("2. Mage");
-        Console.WriteLine("3. Rogue");
-        Console.WriteLine("4. Warlock");
-        var choice = Console.ReadLine();
-
-        return choice;
-    }
-    
     private static Class HandleClassPick(string? choice)
     {
         return (choice switch

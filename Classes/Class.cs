@@ -1,6 +1,8 @@
-﻿namespace Classes;
+﻿using Common;
 
-public abstract class Class
+namespace Classes;
+
+public abstract class Class : IClass
 {
     protected Class(int health, int attack, int defence, int mana)
     {
@@ -10,8 +12,10 @@ public abstract class Class
         Mana = mana;
     }
     
-    public int Health { get; protected init; }
-    public int Attack { get; protected init; }
-    public int Defence { get; protected init; }
-    public int Mana { get; protected init; }
+    public int Health { get; init; }
+    public int Attack { get; init; }
+    public int Defence { get; init; }
+    public int Mana { get; init; }
+
+    public abstract void FillInventory(IItemDictionary items, ICharacter character);
 }

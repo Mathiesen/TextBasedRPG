@@ -7,14 +7,13 @@ public class HealthPotion : IItem
 {
     private ItemEnum _item;
     private readonly QualityColorMapper _mapper;
-    private readonly int _healthRestore;
 
     public HealthPotion(string name, QualityEnum quality, int dropChance, ItemEnum item, int healthRetore, QualityColorMapper mapper)
     {
         Name = name;
         Quality = quality;
         DropChance = dropChance;
-        _healthRestore = healthRetore;
+        HealthRestore = healthRetore;
         _item = item;
         _mapper = mapper;
     }
@@ -27,6 +26,5 @@ public class HealthPotion : IItem
     public string Name { get; init; }
     public QualityEnum Quality { get; init; }
     public int DropChance { get; init; }
-    
     public int HealthRestore { get; init; }
 }
