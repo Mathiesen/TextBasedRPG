@@ -7,12 +7,10 @@ namespace Items;
 public class ItemDictionary
 {
     private IDictionary<ItemEnum, IItem> _items = new Dictionary<ItemEnum, IItem>();
-    private readonly ItemConfigReader _configReader;
 
-    public ItemDictionary(QualityColorMapper mapper, ItemConfigReader configReader)
+    public ItemDictionary(QualityColorMapper mapper)
     {
         InitializeItems(mapper);
-        _configReader = configReader;
     }
 
     private void InitializeItems(QualityColorMapper mapper)
