@@ -83,6 +83,15 @@ public class WeaponBuilder : IWeaponBuilder
                     _dropChance,
                     _item,
                     _mapper);
+            case ItemEnum.WoodenStaff:
+                return new Staff(
+                    "Wooden staff",
+                    _quality,
+                    _dropChance,
+                    _attack,
+                    _defence,
+                    _item,
+                    _mapper);
             default:
                 throw new ArgumentException();
         }            

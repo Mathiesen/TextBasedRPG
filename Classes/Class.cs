@@ -16,6 +16,6 @@ public abstract class Class : IClass
     public int Attack { get; init; }
     public int Defence { get; init; }
     public int Mana { get; init; }
-
+    
     public abstract void FillInventory(IItemDictionary items, ICharacter character);
 }

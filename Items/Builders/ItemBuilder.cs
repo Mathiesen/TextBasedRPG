@@ -53,6 +53,14 @@ public class ItemBuilder : IItemBuilder
                     _item,
                     25,
                     _mapper);
+            case ItemEnum.SmallManaPotion:
+                return new ManaPotion(
+                    "Small mana potion",
+                    _quality,
+                    _dropChance,
+                    15,
+                    _item,
+                    _mapper);
             default:
                 throw new ArgumentException();
         }            

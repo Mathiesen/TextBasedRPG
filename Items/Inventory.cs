@@ -47,4 +47,28 @@ public class Inventory : IInventory
     {
         Items.Add(Guid.NewGuid(), _itemDictionary.GetItem(item) ?? throw new InvalidOperationException());
     }
+
+    public void GiveItem(ItemEnum item, int quantity)
+    {
+        var gold = Items
+            .Where(x => x.Value.GetType() == typeof(Gold))
+            .Select(x => x.Value)
+            .FirstOrDefault();
+
+        if (gold == null)
+        {
+            var gottenGold = _itemDictionary.GetItem(ItemEnum.Gold);
+            var newGold = gottenGold as Gold;
+            newGold!.Amount = quantity;
+            Items.Add(Guid.NewGuid(), newGold);
+        }
+        else
+        {
+            var oldGold = gold as Gold;
+            oldGold!.Amount += quantity;
+        }
+        
+        
+        
+    }
 }

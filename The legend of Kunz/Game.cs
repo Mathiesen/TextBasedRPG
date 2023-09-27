@@ -31,7 +31,15 @@ public class Game
                 if (words[0] == "give" && words[1] == "item")
                 {
                     var item = (ItemEnum)Enum.Parse(typeof(ItemEnum), words[2]);
-                    _player.Inventory.GiveItem(item);
+                    if (item == ItemEnum.Gold)
+                    {
+                        var quantity = int.Parse(words[3]);
+                        _player.Inventory.GiveItem(item, quantity);
+                    }
+                    else
+                    {
+                        _player.Inventory.GiveItem(item);
+                    }
                 }
             }
             else

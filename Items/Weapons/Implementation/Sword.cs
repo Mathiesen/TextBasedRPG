@@ -1,7 +1,4 @@
-﻿using System.Drawing;
-using Pastel;
-
-namespace Items.Weapons.Implementation;
+﻿namespace Items.Weapons.Implementation;
 
 public class Sword : IWeapon
 {
@@ -26,16 +23,12 @@ public class Sword : IWeapon
     
     public string GetDescription()
     {
-        switch (_item)
+        return _item switch
         {
-            case ItemEnum.BronzeSword:
-                return $"{_mapper.ColorizeStringByQuality(Name, Quality)} +{Attack} ATT";
-            case ItemEnum.SmallBronzeSword:
-                return $"{_mapper.ColorizeStringByQuality(Name, Quality)} +{Attack} ATT";
-            case ItemEnum.SwordOfThousandTruths:
-                return $"{_mapper.ColorizeStringByQuality(Name, Quality)} +{Attack} ATT";
-            default:
-                return string.Empty;
-        }
+            ItemEnum.BronzeSword => $"{_mapper.ColorizeStringByQuality(Name, Quality)} +{Attack} ATT",
+            ItemEnum.SmallBronzeSword => $"{_mapper.ColorizeStringByQuality(Name, Quality)} +{Attack} ATT",
+            ItemEnum.SwordOfThousandTruths => $"{_mapper.ColorizeStringByQuality(Name, Quality)} +{Attack} ATT",
+            _ => string.Empty
+        };
     }
 }

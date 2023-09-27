@@ -6,9 +6,11 @@ public enum ItemEnum
     Gold,
     SmallHealthPotion,
     LargeHealthPotion,
+    SmallManaPotion,
     // Weapons
     SmallBronzeSword,
     BronzeSword,
     SmallWoodenBow,
-    SwordOfThousandTruths
+    SwordOfThousandTruths,
+    WoodenStaff
 }

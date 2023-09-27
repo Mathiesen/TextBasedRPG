@@ -62,12 +62,8 @@ public class CharacterFactory
 
         var classChoice = UserInteraction.DisplayClassMenu(character.Name);
         character.Class = HandleClassPick(classChoice);
+        character.Class.FillInventory(_items, character);
 
-        if (character.Class.GetType() == typeof(Warrior))
-        {
-            character.Class.FillInventory(_items, character);
-        }
-        
         return character;
     }
 

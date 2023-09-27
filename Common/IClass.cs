@@ -1,6 +1,4 @@
-﻿using Items;
-
-namespace Common;
+﻿namespace Common;
 
 public interface IClass
 {
@@ -10,9 +8,4 @@ public interface IClass
     public int Mana { get; init; }
 
     void FillInventory(IItemDictionary items, ICharacter character);
-}
-
-public interface IItemDictionary
-{
-    IItem? GetItem(ItemEnum item);
 }

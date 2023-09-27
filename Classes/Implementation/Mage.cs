@@ -1,4 +1,5 @@
 ﻿using Common;
+using Items;
 
 namespace Classes.Implementation;
 
@@ -9,6 +10,9 @@ public class Mage : Class
 
     public override void FillInventory(IItemDictionary items, ICharacter character)
     {
-        throw new NotImplementedException();
+        character.Inventory.GiveItem(ItemEnum.WoodenStaff);
+        character.Inventory.GiveItem(ItemEnum.SmallHealthPotion);
+        character.Inventory.GiveItem(ItemEnum.SmallHealthPotion);
+        character.Inventory.GiveItem(ItemEnum.SmallManaPotion);
     }
 }
