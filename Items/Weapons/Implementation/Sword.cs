@@ -1,4 +1,6 @@
-﻿namespace Items.Weapons.Implementation;
+﻿using Common;
+
+namespace Items.Weapons.Implementation;
 
 public class Sword : IWeapon
 {

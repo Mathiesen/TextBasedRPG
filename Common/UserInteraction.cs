@@ -2,7 +2,7 @@
 
 public static class UserInteraction
 {
-    public static string DisplayClassMenu(string name)
+    public static ClassEnum DisplayClassMenu(string name)
     {
         Console.WriteLine($"\nHello {name}, pick your class");
         Console.WriteLine("1. Warrior");
@@ -14,7 +14,9 @@ public static class UserInteraction
         if (string.IsNullOrEmpty(choice))
             Console.WriteLine("Wrong choice");
 
-        return choice!;
+
+
+        return Enum.Parse<ClassEnum>(choice!);
     }
 
     public static string GetCharacterName()

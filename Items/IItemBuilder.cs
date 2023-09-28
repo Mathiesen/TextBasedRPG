@@ -1,4 +1,6 @@
-﻿namespace Items;
+﻿using Common;
+
+namespace Items;
 
 public interface IItemBuilder
 {

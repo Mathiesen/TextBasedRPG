@@ -1,4 +1,4 @@
-﻿namespace Items;
+﻿namespace Common;
 
 public enum ItemEnum
 {
@@ -12,5 +12,6 @@ public enum ItemEnum
     BronzeSword,
     SmallWoodenBow,
     SwordOfThousandTruths,
-    WoodenStaff
+    WoodenStaff,
+    SmallDagger
 }

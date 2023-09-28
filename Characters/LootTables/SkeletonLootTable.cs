@@ -1,4 +1,5 @@
-﻿using Items;
+﻿using Common;
+using Items;
 
 namespace Characters.LootTables;
 

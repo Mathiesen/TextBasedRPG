@@ -1,11 +1,12 @@
 ﻿using Characters;
+using Common;
 using Items;
 
 namespace The_legend_of_Kunz;
 
 public class Game
 {
-    private Character? _player;
+    private ICharacter? _player;
     private CharacterFactory _characterFactory;
     private bool _isRunning;
     private bool _firstLoad;
@@ -130,10 +131,12 @@ public class Game
         _player = _characterFactory.CreateCharacter(CharacterEnum.Player, null);
     }
 
-    private Character? CreateSkeleton()
+    private ICharacter? CreateSkeleton()
     {
         var skellie =  _characterFactory.CreateCharacter(CharacterEnum.Skeleton, _player);
+        Console.WriteLine(skellie.ToString());
         skellie!.Inventory.Items.ToList().ForEach(x => Console.WriteLine(x.Value.GetDescription()));
+        
         return skellie;
     }
 

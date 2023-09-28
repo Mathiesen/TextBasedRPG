@@ -14,5 +14,11 @@ public class Mage : Class
         character.Inventory.GiveItem(ItemEnum.SmallHealthPotion);
         character.Inventory.GiveItem(ItemEnum.SmallHealthPotion);
         character.Inventory.GiveItem(ItemEnum.SmallManaPotion);
+        character.Inventory.GiveItem(ItemEnum.Gold, 1);
+    }
+    
+    public override string ToString()
+    {
+        return nameof(Mage);
     }
 }

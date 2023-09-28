@@ -8,4 +8,9 @@ public class Skeleton : Enemy
         : base(itemDictionary)
     {
     }
+
+    public override string ToString()
+    {
+        return $"Level {Level} {Name} {Class}";
+    }
 }

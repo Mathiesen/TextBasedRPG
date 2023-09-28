@@ -1,6 +1,7 @@
 ﻿using Common;
 using Items.Builders;
 using Items.Implementation;
+using Items.Weapons.Implementation;
 
 namespace Items;
 
@@ -63,6 +64,15 @@ public class ItemDictionary : IItemDictionary
                     .SetQuality(QualityEnum.Common)
                     .SetDropChance(45)
                     .SetItemEnum(ItemEnum.SmallManaPotion)
+                    .Build()
+            },
+            {
+                ItemEnum.SmallDagger, new WeaponBuilder(mapper)
+                    .SetAttack(12)
+                    .SetDefence(0)
+                    .SetQuality(QualityEnum.Common)
+                    .SetDropChance(56)
+                    .SetItemEnum(ItemEnum.SmallDagger)
                     .Build()
             }
         };

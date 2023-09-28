@@ -9,7 +9,7 @@ public class Inventory : IInventory
     public IDictionary<Guid, IItem> Items { get; set; }
 
     private static readonly Random Rng = new();
-    private IItemDictionary _itemDictionary;
+    private readonly IItemDictionary _itemDictionary;
 
     public Inventory(IItemDictionary itemDictionary)
     {
@@ -67,8 +67,13 @@ public class Inventory : IInventory
             var oldGold = gold as Gold;
             oldGold!.Amount += quantity;
         }
-        
-        
-        
+    }
+    
+    public void Add(IInventory loot)
+    {
+        foreach (var item in loot.Items)
+        {
+            Items.Add(Guid.NewGuid(), item.Value);
+        }
     }
 }

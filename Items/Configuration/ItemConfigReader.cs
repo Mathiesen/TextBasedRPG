@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
+using Common;
 
-namespace Items;
+namespace Items.Configuration;
 
 public class ItemConfigReader
 {

@@ -1,5 +1,4 @@
 ﻿using Common;
-using Items;
 
 namespace Classes.Implementation;
 
@@ -12,9 +11,14 @@ public class Warrior : Class
 
     public override void FillInventory(IItemDictionary items, ICharacter character)
     {
-        character.Inventory.Items.Add(Guid.NewGuid(), items.GetItem(ItemEnum.SmallBronzeSword));
-        character.Inventory.Items.Add(Guid.NewGuid(), items.GetItem(ItemEnum.SmallHealthPotion));
-        character.Inventory.Items.Add(Guid.NewGuid(), items.GetItem(ItemEnum.SmallHealthPotion));
+        character.Inventory.GiveItem(ItemEnum.SmallBronzeSword);
+        character.Inventory.GiveItem(ItemEnum.SmallHealthPotion);
+        character.Inventory.GiveItem(ItemEnum.SmallHealthPotion);
         character.Inventory.GiveItem(ItemEnum.Gold, 1);
+    }
+
+    public override string ToString()
+    {
+        return nameof(Warrior);
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Items.Implementation;
+﻿using Common;
+
+namespace Items.Implementation;
 
 public class ManaPotion : IItem
 {

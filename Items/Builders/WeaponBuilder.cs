@@ -1,4 +1,5 @@
-﻿using Items.Implementation;
+﻿using Common;
+using Items.Implementation;
 using Items.Weapons.Implementation;
 
 namespace Items.Builders;
@@ -86,6 +87,15 @@ public class WeaponBuilder : IWeaponBuilder
             case ItemEnum.WoodenStaff:
                 return new Staff(
                     "Wooden staff",
+                    _quality,
+                    _dropChance,
+                    _attack,
+                    _defence,
+                    _item,
+                    _mapper);
+            case ItemEnum.SmallDagger:
+                return new Dagger(
+                    "Small dagger",
                     _quality,
                     _dropChance,
                     _attack,

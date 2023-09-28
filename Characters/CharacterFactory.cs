@@ -1,8 +1,8 @@
 ﻿using System.Security.Cryptography;
 using Characters.Enemies;
 using Characters.LootTables;
+using Characters.Strategies;
 using Classes;
-using Classes.Implementation;
 using Common;
 using Items;
 
@@ -10,16 +10,22 @@ namespace Characters;
 
 public class CharacterFactory
 {
+    private IDictionary<CharacterEnum, ICharacterCreationStrategy> _strategies;
     private ItemDictionary _items;
 
     public CharacterFactory(ItemDictionary items)
     {
         _items = items;
+        _strategies = new Dictionary<CharacterEnum, ICharacterCreationStrategy>
+        {
+            {CharacterEnum.Player, new PlayerCreationStrategy()},
+            {CharacterEnum.Skeleton, new SkeletonCreationStrategy()}
+        };
     }
     
-    public Character? CreateCharacter(CharacterEnum characterType, Character? player)
+    public ICharacter? CreateCharacter(CharacterEnum characterType, ICharacter? player)
     {
-        Character? character = null;
+        ICharacter? character = null;
 
         switch (characterType)
         {
@@ -38,18 +44,10 @@ public class CharacterFactory
         return character;
     }
 
-    private Character? CreateSkeletonCharacter(Character? player)
+    private ICharacter? CreateSkeletonCharacter(ICharacter? player)
     {
-        var clazz = ClassFactory.Create(ClassEnum.Warrior);
-        var character = new Skeleton(_items)
-        {
-            Class = clazz,
-            Level = RandomNumberGenerator.GetInt32(player.Level, player.Level + 3)
-        };
-
-        character.Inventory.Randomize(new SkeletonLootTable(_items).PossibleLoot.ToList());
-
-        return character;
+       _strategies.TryGetValue(CharacterEnum.Skeleton, out var strategy);
+       return strategy!.CreateCharacter(_items);
     }
 
     private Character? CreatePlayerCharacter()
@@ -67,15 +65,12 @@ public class CharacterFactory
         return character;
     }
 
-    private static Class HandleClassPick(string? choice)
+    private static IClass HandleClassPick(ClassEnum classChoice) => classChoice switch
     {
-        return (choice switch
-        {
-            "1" => ClassFactory.Create(ClassEnum.Warrior),
-            "2" => ClassFactory.Create(ClassEnum.Mage),
-            "3" => ClassFactory.Create(ClassEnum.Rogue),
-            "4" => ClassFactory.Create(ClassEnum.Warlock),
-            _ => null
-        })!;
-    }
+        ClassEnum.Warrior => ClassFactory.Create(ClassEnum.Warrior),
+        ClassEnum.Mage => ClassFactory.Create(ClassEnum.Mage),
+        ClassEnum.Rogue => ClassFactory.Create(ClassEnum.Rogue),
+        ClassEnum.Warlock => ClassFactory.Create(ClassEnum.Warlock),
+        _ => throw new ArgumentOutOfRangeException(nameof(classChoice), classChoice, null)
+    };
 }

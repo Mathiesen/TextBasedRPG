@@ -9,6 +9,14 @@ public class Rogue : Class
 
     public override void FillInventory(IItemDictionary items, ICharacter character)
     {
-        throw new NotImplementedException();
+        character.Inventory.GiveItem(ItemEnum.SmallDagger);
+        character.Inventory.GiveItem(ItemEnum.SmallHealthPotion);
+        character.Inventory.GiveItem(ItemEnum.SmallHealthPotion);
+        character.Inventory.GiveItem(ItemEnum.Gold, 1);
+    }
+
+    public override string ToString()
+    {
+        return nameof(Rogue);
     }
 }

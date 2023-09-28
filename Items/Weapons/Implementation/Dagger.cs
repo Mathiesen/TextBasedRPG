@@ -2,17 +2,15 @@
 
 namespace Items.Weapons.Implementation;
 
-public class Staff : IWeapon
+public class Dagger : IWeapon
 {
     private readonly QualityColorMapper _mapper;
     private readonly ItemEnum _item;
     public string Name { get; init; }
     public QualityEnum Quality { get; init; }
     public int DropChance { get; init; }
-    public int Attack { get; init; }
-    public int Defence { get; init; }
 
-    public Staff(string name, QualityEnum quality, int dropChance, int attack, int defence, ItemEnum item, QualityColorMapper mapper)
+    public Dagger(string name, QualityEnum quality, int dropChance, int attack, int defence, ItemEnum item, QualityColorMapper mapper)
     {
         Name = name;
         Quality = quality;
@@ -27,10 +25,11 @@ public class Staff : IWeapon
     {
         return _item switch
         {
-            ItemEnum.WoodenStaff => $"{_mapper.ColorizeStringByQuality(Name, Quality)} +{Attack} ATT",
+            ItemEnum.SmallDagger => $"{_mapper.ColorizeStringByQuality(Name, Quality)} +{Attack} ATT",
             _ => string.Empty
         };
     }
 
-
+    public int Attack { get; init; }
+    public int Defence { get; init; }
 }

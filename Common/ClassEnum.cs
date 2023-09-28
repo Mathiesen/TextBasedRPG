@@ -1,4 +1,4 @@
-﻿namespace Classes;
+﻿namespace Common;
 
 public enum ClassEnum
 {
